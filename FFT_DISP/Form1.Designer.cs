@@ -42,8 +42,9 @@
             this.btMicroBack = new System.Windows.Forms.Button();
             this.btMicroStep = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.rbFFTSharp = new System.Windows.Forms.RadioButton();
             this.rbGoerzel = new System.Windows.Forms.RadioButton();
+            this.rbFFTSharp = new System.Windows.Forms.RadioButton();
+            this.rbGoerzelMod = new System.Windows.Forms.RadioButton();
             this.rbFFT = new System.Windows.Forms.RadioButton();
             this.lbFreq = new System.Windows.Forms.Label();
             this.cbAverage = new System.Windows.Forms.CheckBox();
@@ -77,6 +78,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btFileOpen = new System.Windows.Forms.Button();
             this.tbFile = new System.Windows.Forms.TextBox();
+            this.gbGoerzelParam = new System.Windows.Forms.GroupBox();
+            this.tbStartGoer = new System.Windows.Forms.MaskedTextBox();
+            this.tbStopGoer = new System.Windows.Forms.MaskedTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -98,6 +104,7 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAdcAcc)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.gbGoerzelParam.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -113,7 +120,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(811, 478);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(811, 586);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // splitContainer1
@@ -130,8 +137,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.crtFFT);
-            this.splitContainer1.Size = new System.Drawing.Size(642, 472);
-            this.splitContainer1.SplitterDistance = 246;
+            this.splitContainer1.Size = new System.Drawing.Size(642, 580);
+            this.splitContainer1.SplitterDistance = 302;
             this.splitContainer1.TabIndex = 0;
             // 
             // crtADC
@@ -147,7 +154,7 @@
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series1.Name = "Series1";
             this.crtADC.Series.Add(series1);
-            this.crtADC.Size = new System.Drawing.Size(642, 246);
+            this.crtADC.Size = new System.Drawing.Size(642, 302);
             this.crtADC.TabIndex = 0;
             this.crtADC.Text = "chart1";
             // 
@@ -165,7 +172,7 @@
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
             series2.Name = "Series1";
             this.crtFFT.Series.Add(series2);
-            this.crtFFT.Size = new System.Drawing.Size(642, 222);
+            this.crtFFT.Size = new System.Drawing.Size(642, 274);
             this.crtFFT.TabIndex = 0;
             this.crtFFT.Text = "chart1";
             this.crtFFT.CursorPositionChanged += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.CursorEventArgs>(this.crtFFT_CursorPositionChanged);
@@ -178,7 +185,7 @@
             this.tabControl1.Location = new System.Drawing.Point(651, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(157, 472);
+            this.tabControl1.Size = new System.Drawing.Size(157, 580);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -187,13 +194,14 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(149, 446);
+            this.tabPage1.Size = new System.Drawing.Size(149, 554);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "FFT";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.gbGoerzelParam);
             this.groupBox3.Controls.Add(this.btMicroBack);
             this.groupBox3.Controls.Add(this.btMicroStep);
             this.groupBox3.Controls.Add(this.groupBox5);
@@ -216,7 +224,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(143, 440);
+            this.groupBox3.Size = new System.Drawing.Size(143, 548);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FFT Parameters";
@@ -243,15 +251,27 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.rbFFTSharp);
             this.groupBox5.Controls.Add(this.rbGoerzel);
+            this.groupBox5.Controls.Add(this.rbFFTSharp);
+            this.groupBox5.Controls.Add(this.rbGoerzelMod);
             this.groupBox5.Controls.Add(this.rbFFT);
             this.groupBox5.Location = new System.Drawing.Point(9, 343);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(100, 91);
+            this.groupBox5.Size = new System.Drawing.Size(100, 112);
             this.groupBox5.TabIndex = 19;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Conversion";
+            // 
+            // rbGoerzel
+            // 
+            this.rbGoerzel.AutoSize = true;
+            this.rbGoerzel.Location = new System.Drawing.Point(6, 89);
+            this.rbGoerzel.Name = "rbGoerzel";
+            this.rbGoerzel.Size = new System.Drawing.Size(61, 17);
+            this.rbGoerzel.TabIndex = 3;
+            this.rbGoerzel.TabStop = true;
+            this.rbGoerzel.Text = "Goerzel";
+            this.rbGoerzel.UseVisualStyleBackColor = true;
             // 
             // rbFFTSharp
             // 
@@ -265,15 +285,15 @@
             this.rbFFTSharp.Text = "FFTSharp";
             this.rbFFTSharp.UseVisualStyleBackColor = true;
             // 
-            // rbGoerzel
+            // rbGoerzelMod
             // 
-            this.rbGoerzel.AutoSize = true;
-            this.rbGoerzel.Location = new System.Drawing.Point(7, 66);
-            this.rbGoerzel.Name = "rbGoerzel";
-            this.rbGoerzel.Size = new System.Drawing.Size(61, 17);
-            this.rbGoerzel.TabIndex = 1;
-            this.rbGoerzel.Text = "Goerzel";
-            this.rbGoerzel.UseVisualStyleBackColor = true;
+            this.rbGoerzelMod.AutoSize = true;
+            this.rbGoerzelMod.Location = new System.Drawing.Point(7, 66);
+            this.rbGoerzelMod.Name = "rbGoerzelMod";
+            this.rbGoerzelMod.Size = new System.Drawing.Size(85, 17);
+            this.rbGoerzelMod.TabIndex = 1;
+            this.rbGoerzelMod.Text = "Goerzel Mod";
+            this.rbGoerzelMod.UseVisualStyleBackColor = true;
             // 
             // rbFFT
             // 
@@ -464,7 +484,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(149, 446);
+            this.tabPage2.Size = new System.Drawing.Size(149, 554);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "File";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -483,8 +503,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(143, 440);
-            this.splitContainer2.SplitterDistance = 385;
+            this.splitContainer2.Size = new System.Drawing.Size(143, 548);
+            this.splitContainer2.SplitterDistance = 479;
             this.splitContainer2.TabIndex = 0;
             // 
             // groupBox2
@@ -498,7 +518,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(143, 385);
+            this.groupBox2.Size = new System.Drawing.Size(143, 479);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Parameters";
@@ -628,7 +648,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(143, 51);
+            this.groupBox1.Size = new System.Drawing.Size(143, 65);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File";
@@ -650,11 +670,58 @@
             this.tbFile.Size = new System.Drawing.Size(78, 20);
             this.tbFile.TabIndex = 0;
             // 
+            // gbGoerzelParam
+            // 
+            this.gbGoerzelParam.Controls.Add(this.label7);
+            this.gbGoerzelParam.Controls.Add(this.label6);
+            this.gbGoerzelParam.Controls.Add(this.tbStopGoer);
+            this.gbGoerzelParam.Controls.Add(this.tbStartGoer);
+            this.gbGoerzelParam.Location = new System.Drawing.Point(9, 455);
+            this.gbGoerzelParam.Name = "gbGoerzelParam";
+            this.gbGoerzelParam.Size = new System.Drawing.Size(128, 87);
+            this.gbGoerzelParam.TabIndex = 22;
+            this.gbGoerzelParam.TabStop = false;
+            this.gbGoerzelParam.Text = "GoerzelParam";
+            // 
+            // tbStartGoer
+            // 
+            this.tbStartGoer.Location = new System.Drawing.Point(7, 25);
+            this.tbStartGoer.Mask = "0000.0000";
+            this.tbStartGoer.Name = "tbStartGoer";
+            this.tbStartGoer.Size = new System.Drawing.Size(100, 20);
+            this.tbStartGoer.TabIndex = 0;
+            // 
+            // tbStopGoer
+            // 
+            this.tbStopGoer.Location = new System.Drawing.Point(7, 61);
+            this.tbStopGoer.Mask = "0000.0000";
+            this.tbStopGoer.Name = "tbStopGoer";
+            this.tbStopGoer.Size = new System.Drawing.Size(100, 20);
+            this.tbStopGoer.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 12);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Start";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Stop";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(811, 478);
+            this.ClientSize = new System.Drawing.Size(811, 586);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Form1";
             this.Text = "FFTViewer";
@@ -684,6 +751,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numAdcAcc)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.gbGoerzelParam.ResumeLayout(false);
+            this.gbGoerzelParam.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -730,11 +799,17 @@
         private System.Windows.Forms.CheckBox cbAverage;
         private System.Windows.Forms.Label lbFreq;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton rbGoerzel;
+        private System.Windows.Forms.RadioButton rbGoerzelMod;
         private System.Windows.Forms.RadioButton rbFFT;
         private System.Windows.Forms.RadioButton rbFFTSharp;
         private System.Windows.Forms.Button btMicroStep;
         private System.Windows.Forms.Button btMicroBack;
+        private System.Windows.Forms.RadioButton rbGoerzel;
+        private System.Windows.Forms.GroupBox gbGoerzelParam;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.MaskedTextBox tbStopGoer;
+        private System.Windows.Forms.MaskedTextBox tbStartGoer;
     }
 }
 

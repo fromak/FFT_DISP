@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio Express 14 for Windows Desktop
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFT_DISP", "FFT_DISP\FFT_DISP.csproj", "{4FF6A57A-F05B-41EA-93FF-3956665504A5}"
 EndProject

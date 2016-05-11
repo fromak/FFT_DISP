@@ -11,11 +11,13 @@ namespace FFT_DISP
     {
         ViewerConfig Config;
         FFTConfig ConversionConfiguration;
+        Goerzel_params GoerParam;
         public Form1()
         {
             InitializeComponent();
             Config = new ViewerConfig();
             ConversionConfiguration = new FFTConfig();
+            GoerParam = new Goerzel_params();
             if (Config.ConfigHasConfiguration)
             {
                 tbFile.Text = Config.FilesPath;
@@ -111,7 +113,7 @@ namespace FFT_DISP
 
         private void PutStartPoint()
         {
-            if (Convert.ToInt32(tbStartPoint.Text) >= 0)
+            if (Convert.ToInt32(tbStartPoint.Text == "" ? "-1" : tbStartPoint.Text) >= 0)
             {
                 //Забили картиночке и заполнили конфиг
                 lbEndPoint.Text = string.Format("EndPoint: {0}", numFFT.Value + Convert.ToInt32(tbStartPoint.Text));
@@ -339,10 +341,46 @@ namespace FFT_DISP
         {
             if (rbFFTSharp.Checked)
                 FFTCheckAndComplete();
+            else if (rbGoerzelMod.Checked)
+                GoerzelModCheckAndComplete();
             else if (rbGoerzel.Checked)
                 GoerzelCheckAndComplete();
             else
                 FFTCheckAndComplete();
+        }
+        /// <summary>
+        /// Запуск нормального преобразования Герцеля для точной выборки
+        /// </summary>
+        private void GoerzelCheckAndComplete()
+        {
+            //Очищаем графики
+            crtADC.Series[0].Points.Clear();
+            crtFFT.Series[0].Points.Clear();
+            //Параметры преобразования
+            GoerParam.SampleRate = ConversionConfiguration.SampleRate;
+            //Константа, меньше разрешающая способность не должна быть
+            GoerParam.NumOfPoints = ConversionConfiguration.NumOfPoints;
+            GoerParam.StartFreq = Convert.ToSingle(tbStartGoer.Text);
+            GoerParam.StopFreq = Convert.ToSingle(tbStopGoer.Text);
+            //Считали массив байт
+            byte[] samples = new byte[GoerParam.NumOfPoints * 2];
+            ReadSamplesToArray(samples);
+            float[] AdcSampl = new float[GoerParam.NumOfPoints];
+            CopyToADCSteps(samples, AdcSampl);
+            //Нарисовали значения АЦП
+            foreach (float sampl in AdcSampl)
+            {
+                crtADC.Series[0].Points.AddY(sampl);
+            }
+            //Сконвертировали
+            Goerzel Conv = new Goerzel();
+            
+            float[] Harm = Conv.Goerzel_normal(AdcSampl, GoerParam);
+            //Нарисовали
+            foreach (float Har in Harm)
+            {
+                crtFFT.Series[0].Points.AddY(Math.Abs(Har));
+            }
         }
 
         private void btStepBack_Click(object sender, EventArgs e)
@@ -367,7 +405,10 @@ namespace FFT_DISP
         private void crtFFT_CursorPositionChanged(object sender, System.Windows.Forms.DataVisualization.Charting.CursorEventArgs e)
         {
             string Format = "Freq: {0}\r\nPoint: {1}";
-            lbFreq.Text = string.Format(Format, ConversionConfiguration.GetFreqByHarm((int)crtFFT.ChartAreas[0].CursorX.Position - 1).ToString(), crtFFT.ChartAreas[0].CursorX.Position);
+            if (rbGoerzel.Checked)
+                lbFreq.Text = string.Format(Format, ConversionConfiguration.GetFreqByHarm((int)crtFFT.ChartAreas[0].CursorX.Position + (int)(GoerParam.StartFreq / ((float)GoerParam.SampleRate/GoerParam.NumOfPoints))).ToString(), crtFFT.ChartAreas[0].CursorX.Position);
+            else
+                lbFreq.Text = string.Format(Format, ConversionConfiguration.GetFreqByHarm((int)crtFFT.ChartAreas[0].CursorX.Position).ToString(), crtFFT.ChartAreas[0].CursorX.Position);
         }
 
         private void cbFFTSharp_CheckedChanged(object sender, EventArgs e)
@@ -382,33 +423,28 @@ namespace FFT_DISP
 
         }
 
-        private void GoerzelCheckAndComplete()
+        private void GoerzelModCheckAndComplete()
         {
             if (CheckConversionParam(true))
             {
                 //параметры герцеля, от них пляшем танец маленьких утят
-                Goerzel_params G_pararm = new Goerzel_params()
-                {
-                    freq = 1000,
-                    Length = 100000,
-                    SampleRate = ConversionConfiguration.SampleRate,
-                    Window = 512
-                };
+
+                GoerParam.freq = 1000;
+                    GoerParam.Length = 100000;
+                    GoerParam.SampleRate = ConversionConfiguration.SampleRate;
+                    GoerParam.Window = 512;
+                
 
                 Goerzel Conversation = new Goerzel();
 
-                byte[] points = new byte[G_pararm.Length * 2];
+                byte[] points = new byte[GoerParam.Length * 2];
                 ReadSamplesToArray(points);
-                float[] Rdat = new float[G_pararm.Length];
+                float[] Rdat = new float[GoerParam.Length];
                 //Очищаем графики
                 crtFFT.Series[0].Points.Clear();
                 crtADC.Series[0].Points.Clear();
                 //Адско копирнули массив из байт в значения АЦП
-                for (int i = 1; i < points.Length;)
-                {
-                    Rdat[(i - 1) / 2] = ((UInt16)((points[i - 1] << 8) + (points[i])) * ConversionConfiguration.ADCStep);
-                    i += 2;
-                }
+                CopyToADCSteps(points, Rdat);
                 //Если че, то наводим порядок на кухне и шлифуем сигнал
                 if (cbHamming.Checked)
                     HammingWindow(Rdat);
@@ -420,7 +456,7 @@ namespace FFT_DISP
                 }
                 //Запустили преобразование и позырили
 
-                Rdat = Conversation.GOERZEL_MOD(Rdat, G_pararm);
+                Rdat = Conversation.GOERZEL_MOD(Rdat, GoerParam);
                 //Окно Хамминга вносит погрешность в результат в момент установления
                 if (cbHamming.Checked)
                     for (int i = 0; i < 513; i++)
@@ -449,6 +485,19 @@ namespace FFT_DISP
                 {
                     crtFFT.Series[0].Points.AddY(data);
                 }
+            }
+        }
+        /// <summary>
+        /// Конвертирует семплы АЦП в значения напряжения
+        /// </summary>
+        /// <param name="points">массив БАЙТ АЦП</param>
+        /// <param name="Rdat">Массив значений напряжения</param>
+        private void CopyToADCSteps(byte[] points, float[] Rdat)
+        {
+            for (int i = 1; i < points.Length;)
+            {
+                Rdat[(i - 1) / 2] = ((UInt16)((points[i - 1] << 8) + (points[i])) * ConversionConfiguration.ADCStep);
+                i += 2;
             }
         }
 
