@@ -39,6 +39,11 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gbGoerzelParam = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbStopGoer = new System.Windows.Forms.MaskedTextBox();
+            this.tbStartGoer = new System.Windows.Forms.MaskedTextBox();
             this.btMicroBack = new System.Windows.Forms.Button();
             this.btMicroStep = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -78,11 +83,11 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btFileOpen = new System.Windows.Forms.Button();
             this.tbFile = new System.Windows.Forms.TextBox();
-            this.gbGoerzelParam = new System.Windows.Forms.GroupBox();
-            this.tbStartGoer = new System.Windows.Forms.MaskedTextBox();
-            this.tbStopGoer = new System.Windows.Forms.MaskedTextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.gbSearch = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbSearchLen = new System.Windows.Forms.MaskedTextBox();
+            this.btSearch = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -93,6 +98,7 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.gbGoerzelParam.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numFFT)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -104,7 +110,8 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numAdcAcc)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.gbGoerzelParam.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.gbSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -181,6 +188,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(651, 3);
             this.tabControl1.Name = "tabControl1";
@@ -228,6 +236,53 @@
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "FFT Parameters";
+            // 
+            // gbGoerzelParam
+            // 
+            this.gbGoerzelParam.Controls.Add(this.label7);
+            this.gbGoerzelParam.Controls.Add(this.label6);
+            this.gbGoerzelParam.Controls.Add(this.tbStopGoer);
+            this.gbGoerzelParam.Controls.Add(this.tbStartGoer);
+            this.gbGoerzelParam.Location = new System.Drawing.Point(9, 455);
+            this.gbGoerzelParam.Name = "gbGoerzelParam";
+            this.gbGoerzelParam.Size = new System.Drawing.Size(128, 87);
+            this.gbGoerzelParam.TabIndex = 22;
+            this.gbGoerzelParam.TabStop = false;
+            this.gbGoerzelParam.Text = "GoerzelParam";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Stop";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 12);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(29, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Start";
+            // 
+            // tbStopGoer
+            // 
+            this.tbStopGoer.Location = new System.Drawing.Point(7, 61);
+            this.tbStopGoer.Mask = "0000.0000";
+            this.tbStopGoer.Name = "tbStopGoer";
+            this.tbStopGoer.Size = new System.Drawing.Size(100, 20);
+            this.tbStopGoer.TabIndex = 1;
+            // 
+            // tbStartGoer
+            // 
+            this.tbStartGoer.Location = new System.Drawing.Point(7, 25);
+            this.tbStartGoer.Mask = "0000.0000";
+            this.tbStartGoer.Name = "tbStartGoer";
+            this.tbStartGoer.Size = new System.Drawing.Size(100, 20);
+            this.tbStartGoer.TabIndex = 0;
             // 
             // btMicroBack
             // 
@@ -670,52 +725,59 @@
             this.tbFile.Size = new System.Drawing.Size(78, 20);
             this.tbFile.TabIndex = 0;
             // 
-            // gbGoerzelParam
+            // tabPage3
             // 
-            this.gbGoerzelParam.Controls.Add(this.label7);
-            this.gbGoerzelParam.Controls.Add(this.label6);
-            this.gbGoerzelParam.Controls.Add(this.tbStopGoer);
-            this.gbGoerzelParam.Controls.Add(this.tbStartGoer);
-            this.gbGoerzelParam.Location = new System.Drawing.Point(9, 455);
-            this.gbGoerzelParam.Name = "gbGoerzelParam";
-            this.gbGoerzelParam.Size = new System.Drawing.Size(128, 87);
-            this.gbGoerzelParam.TabIndex = 22;
-            this.gbGoerzelParam.TabStop = false;
-            this.gbGoerzelParam.Text = "GoerzelParam";
+            this.tabPage3.Controls.Add(this.gbSearch);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(149, 554);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Search";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // tbStartGoer
+            // gbSearch
             // 
-            this.tbStartGoer.Location = new System.Drawing.Point(7, 25);
-            this.tbStartGoer.Mask = "0000.0000";
-            this.tbStartGoer.Name = "tbStartGoer";
-            this.tbStartGoer.Size = new System.Drawing.Size(100, 20);
-            this.tbStartGoer.TabIndex = 0;
+            this.gbSearch.AutoSize = true;
+            this.gbSearch.Controls.Add(this.label8);
+            this.gbSearch.Controls.Add(this.tbSearchLen);
+            this.gbSearch.Controls.Add(this.btSearch);
+            this.gbSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbSearch.Location = new System.Drawing.Point(3, 3);
+            this.gbSearch.Name = "gbSearch";
+            this.gbSearch.Size = new System.Drawing.Size(143, 548);
+            this.gbSearch.TabIndex = 0;
+            this.gbSearch.TabStop = false;
+            this.gbSearch.Text = "Search";
             // 
-            // tbStopGoer
+            // label8
             // 
-            this.tbStopGoer.Location = new System.Drawing.Point(7, 61);
-            this.tbStopGoer.Mask = "0000.0000";
-            this.tbStopGoer.Name = "tbStopGoer";
-            this.tbStopGoer.Size = new System.Drawing.Size(100, 20);
-            this.tbStopGoer.TabIndex = 1;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 45);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(77, 13);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Search Length";
             // 
-            // label6
+            // tbSearchLen
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(9, 12);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Start";
+            this.tbSearchLen.HidePromptOnLeave = true;
+            this.tbSearchLen.Location = new System.Drawing.Point(6, 58);
+            this.tbSearchLen.Mask = "0000000000";
+            this.tbSearchLen.Name = "tbSearchLen";
+            this.tbSearchLen.Size = new System.Drawing.Size(100, 20);
+            this.tbSearchLen.TabIndex = 1;
+            this.tbSearchLen.Text = "131072";
             // 
-            // label7
+            // btSearch
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 46);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(29, 13);
-            this.label7.TabIndex = 3;
-            this.label7.Text = "Stop";
+            this.btSearch.Location = new System.Drawing.Point(6, 19);
+            this.btSearch.Name = "btSearch";
+            this.btSearch.Size = new System.Drawing.Size(75, 23);
+            this.btSearch.TabIndex = 0;
+            this.btSearch.Text = "Search";
+            this.btSearch.UseVisualStyleBackColor = true;
+            this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
             // 
             // Form1
             // 
@@ -736,6 +798,8 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.gbGoerzelParam.ResumeLayout(false);
+            this.gbGoerzelParam.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numFFT)).EndInit();
@@ -751,8 +815,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numAdcAcc)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.gbGoerzelParam.ResumeLayout(false);
-            this.gbGoerzelParam.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.gbSearch.ResumeLayout(false);
+            this.gbSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -810,6 +876,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.MaskedTextBox tbStopGoer;
         private System.Windows.Forms.MaskedTextBox tbStartGoer;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.GroupBox gbSearch;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.MaskedTextBox tbSearchLen;
+        private System.Windows.Forms.Button btSearch;
     }
 }
 

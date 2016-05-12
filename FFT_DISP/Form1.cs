@@ -515,5 +515,20 @@ namespace FFT_DISP
                 StartConversion();
             }
         }
+
+        private void btSearch_Click(object sender, EventArgs e)
+        {
+            if (tbSearchLen.Text != "")
+            {
+                ///Вот тут мы типа считали данные в память и погнали по ним галопом по Европам
+                byte[] Samples = new byte[Convert.ToInt32(tbSearchLen.Text) * 2];
+                ReadSamplesToArray(Samples);
+                float[] AdcSamples = new float[Convert.ToInt32(tbSearchLen.Text)];
+                CopyToADCSteps(Samples, AdcSamples);
+                //Начинаем искать
+                Search FindIt = new Search();
+                FindIt.SearchHarmonicsFull(AdcSamples);
+            }
+        }
     }
 }
