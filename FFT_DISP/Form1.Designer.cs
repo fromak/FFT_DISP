@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.crtADC = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -85,6 +85,10 @@
             this.tbFile = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.gbSearch = new System.Windows.Forms.GroupBox();
+            this.cbDecrNoise = new System.Windows.Forms.CheckBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tbNoiseDepth = new System.Windows.Forms.TextBox();
+            this.btRemNoise = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.tbSearchLen = new System.Windows.Forms.MaskedTextBox();
             this.btSearch = new System.Windows.Forms.Button();
@@ -150,35 +154,35 @@
             // 
             // crtADC
             // 
-            chartArea1.CursorX.IsUserEnabled = true;
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.Name = "ChartArea1";
-            this.crtADC.ChartAreas.Add(chartArea1);
+            chartArea3.CursorX.IsUserEnabled = true;
+            chartArea3.CursorX.IsUserSelectionEnabled = true;
+            chartArea3.Name = "ChartArea1";
+            this.crtADC.ChartAreas.Add(chartArea3);
             this.crtADC.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crtADC.Location = new System.Drawing.Point(0, 0);
             this.crtADC.Name = "crtADC";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series1.Name = "Series1";
-            this.crtADC.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series3.Name = "Series1";
+            this.crtADC.Series.Add(series3);
             this.crtADC.Size = new System.Drawing.Size(642, 302);
             this.crtADC.TabIndex = 0;
             this.crtADC.Text = "chart1";
             // 
             // crtFFT
             // 
-            chartArea2.CursorX.IsUserEnabled = true;
-            chartArea2.CursorX.IsUserSelectionEnabled = true;
-            chartArea2.CursorX.LineColor = System.Drawing.Color.DarkRed;
-            chartArea2.Name = "ChartArea1";
-            this.crtFFT.ChartAreas.Add(chartArea2);
+            chartArea4.CursorX.IsUserEnabled = true;
+            chartArea4.CursorX.IsUserSelectionEnabled = true;
+            chartArea4.CursorX.LineColor = System.Drawing.Color.DarkRed;
+            chartArea4.Name = "ChartArea1";
+            this.crtFFT.ChartAreas.Add(chartArea4);
             this.crtFFT.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crtFFT.Location = new System.Drawing.Point(0, 0);
             this.crtFFT.Name = "crtFFT";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Name = "Series1";
-            this.crtFFT.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series4.Name = "Series1";
+            this.crtFFT.Series.Add(series4);
             this.crtFFT.Size = new System.Drawing.Size(642, 274);
             this.crtFFT.TabIndex = 0;
             this.crtFFT.Text = "chart1";
@@ -739,6 +743,10 @@
             // gbSearch
             // 
             this.gbSearch.AutoSize = true;
+            this.gbSearch.Controls.Add(this.cbDecrNoise);
+            this.gbSearch.Controls.Add(this.label9);
+            this.gbSearch.Controls.Add(this.tbNoiseDepth);
+            this.gbSearch.Controls.Add(this.btRemNoise);
             this.gbSearch.Controls.Add(this.label8);
             this.gbSearch.Controls.Add(this.tbSearchLen);
             this.gbSearch.Controls.Add(this.btSearch);
@@ -749,6 +757,43 @@
             this.gbSearch.TabIndex = 0;
             this.gbSearch.TabStop = false;
             this.gbSearch.Text = "Search";
+            // 
+            // cbDecrNoise
+            // 
+            this.cbDecrNoise.AutoSize = true;
+            this.cbDecrNoise.Location = new System.Drawing.Point(6, 157);
+            this.cbDecrNoise.Name = "cbDecrNoise";
+            this.cbDecrNoise.Size = new System.Drawing.Size(114, 17);
+            this.cbDecrNoise.TabIndex = 6;
+            this.cbDecrNoise.Text = "Decrement Noise?";
+            this.cbDecrNoise.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 115);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(66, 13);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "Noise Depth";
+            // 
+            // tbNoiseDepth
+            // 
+            this.tbNoiseDepth.Location = new System.Drawing.Point(6, 131);
+            this.tbNoiseDepth.Name = "tbNoiseDepth";
+            this.tbNoiseDepth.Size = new System.Drawing.Size(100, 20);
+            this.tbNoiseDepth.TabIndex = 4;
+            this.tbNoiseDepth.Text = "0";
+            // 
+            // btRemNoise
+            // 
+            this.btRemNoise.Location = new System.Drawing.Point(6, 84);
+            this.btRemNoise.Name = "btRemNoise";
+            this.btRemNoise.Size = new System.Drawing.Size(100, 23);
+            this.btRemNoise.TabIndex = 3;
+            this.btRemNoise.Text = "Rememb Noise";
+            this.btRemNoise.UseVisualStyleBackColor = true;
+            this.btRemNoise.Click += new System.EventHandler(this.btRemNoise_Click);
             // 
             // label8
             // 
@@ -881,6 +926,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.MaskedTextBox tbSearchLen;
         private System.Windows.Forms.Button btSearch;
+        private System.Windows.Forms.CheckBox cbDecrNoise;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tbNoiseDepth;
+        private System.Windows.Forms.Button btRemNoise;
     }
 }
 

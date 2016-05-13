@@ -234,6 +234,13 @@ namespace FFT_DISP
                         }
                     }
                 }
+                if(rbFFTSharp.Checked)
+                {
+                    for (int i = 0; i < length; i++)
+                    {
+
+                    }
+                }
                 if (rbFFTSharp.Checked)
                 {
                     for (int i = 1; i < Rdat.Length / 2; i++)
@@ -528,6 +535,23 @@ namespace FFT_DISP
                 //Начинаем искать
                 Search FindIt = new Search();
                 FindIt.SearchHarmonicsFull(AdcSamples);
+            }
+        }
+        private float[] Noise;
+        private void btRemNoise_Click(object sender, EventArgs e)
+        {
+            if (tbNoiseDepth.Text != "" )
+            {
+                if (Convert.ToInt32(tbNoiseDepth.Text) > 0)
+                {
+                    Noise = new float[(int)numFFT.Value];
+                    byte[] Samples = new byte[Convert.ToInt32(numFFT.Value) * 2];
+                    ReadSamplesToArray(Samples);
+                    float[] AdcSamples = new float[Convert.ToInt32(numFFT.Value)];
+                    CopyToADCSteps(Samples, AdcSamples);
+                    Search Ser = new Search();
+                    Ser.CalculateNoise(Noise, AdcSamples, Convert.ToInt32(numFFT.Value), 0, Convert.ToInt32(tbStartPoint.Text), 2);
+                }
             }
         }
     }
