@@ -120,10 +120,14 @@ namespace FFT_DISP
                 NoiseCanceler1024[i] = 0;
             for (int i = 0; i < NoiseCanceler512.Length; i++)
                 NoiseCanceler512[i] = 0;
+            ///ДОРАБОТАТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            float[] NoiseSamples = new float[NoiseCanceler1024.Length * 2];
+            GetSamplesForNoise(AdcSamples, NoSignalStartPoint, NoiseSamples);
+            CalculateNoise(NoiseCanceler1024, NoiseSamples, FFTConfiguration.NumOfPoints, OffsetFor1024,2);
+            CalculateNoise(NoiseCanceler512, AdcSamples, FFTConfiguration.NumOfPoints, OffsetFor512, 4);
+            ///ДОРАБОТАТЬ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            CalculateNoise(NoiseCanceler1024, AdcSamples, FFTConfiguration.NumOfPoints, OffsetFor1024, NoSignalStartPoint, 2);
-            CalculateNoise(NoiseCanceler512, AdcSamples, FFTConfiguration.NumOfPoints, OffsetFor512, NoSignalStartPoint, 4);
-#region Refact
+            #region Refact
 
             //for (int avg = 0; avg < 2; avg++)
             //{
@@ -242,6 +246,15 @@ namespace FFT_DISP
 
 
         }
+
+        private void GetSamplesForNoise(float[] adcSamples, int noSignalStartPoint, float[] noiseSamples)
+        {
+            for (int i = 0; i < noiseSamples.Length; i++)
+            {
+                noiseSamples[i] = adcSamples[noSignalStartPoint + i];
+            }
+        }
+
         /// <summary>
         /// Метод выполняет БПФ и получает усредненное значение для шумоподавления
         /// </summary>
@@ -249,21 +262,20 @@ namespace FFT_DISP
         /// <param name="adcSamples">Массив семплов</param>
         /// <param name="FFTPoints">Длинна БПФ</param>
         /// <param name="NoiseOffset">Начальная гармоника шумоподавления</param>
-        /// <param name="StartPoint">Начальная точка для выборки шумоподавления</param>
         /// <param name="AvgCount">Колличество выборок шумоподавления</param>
-        public void CalculateNoise(float[] noiseCaneler, float[] adcSamples, int FFTPoints, int NoiseOffset, int StartPoint, int AvgCount)
+        public void CalculateNoise(float[] noiseCaneler, float[] adcSamples, int FFTPoints, int NoiseOffset, int AvgCount)
         {
             //FFT
             FFT NoiseCalc = new FFT();
             //Spectr
             Complex[] FFTSpectr = new Complex[FFTPoints];
             //Calculate avg Harmonics
-            for (int avg = 0; avg < AvgCount + 1; avg++)
+            for (int avg = 0; avg < AvgCount; avg++)
             {
                 //Заполняем массив точек для БПФ
                 for (int i = 0; i < FFTPoints; i++)
                 {
-                    FFTSpectr[i] = adcSamples[StartPoint + (avg * FFTPoints) + i];
+                    FFTSpectr[i] = adcSamples[(avg * FFTPoints) + i];
                 }
                 /// 3.1 БПФ, запоминаем 
                 FFTSpectr = NoiseCalc.fftSharp(FFTSpectr);

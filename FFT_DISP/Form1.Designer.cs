@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.crtADC = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -154,35 +154,35 @@
             // 
             // crtADC
             // 
-            chartArea3.CursorX.IsUserEnabled = true;
-            chartArea3.CursorX.IsUserSelectionEnabled = true;
-            chartArea3.Name = "ChartArea1";
-            this.crtADC.ChartAreas.Add(chartArea3);
+            chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
+            chartArea1.Name = "ChartArea1";
+            this.crtADC.ChartAreas.Add(chartArea1);
             this.crtADC.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crtADC.Location = new System.Drawing.Point(0, 0);
             this.crtADC.Name = "crtADC";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series3.Name = "Series1";
-            this.crtADC.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series1.Name = "Series1";
+            this.crtADC.Series.Add(series1);
             this.crtADC.Size = new System.Drawing.Size(642, 302);
             this.crtADC.TabIndex = 0;
             this.crtADC.Text = "chart1";
             // 
             // crtFFT
             // 
-            chartArea4.CursorX.IsUserEnabled = true;
-            chartArea4.CursorX.IsUserSelectionEnabled = true;
-            chartArea4.CursorX.LineColor = System.Drawing.Color.DarkRed;
-            chartArea4.Name = "ChartArea1";
-            this.crtFFT.ChartAreas.Add(chartArea4);
+            chartArea2.CursorX.IsUserEnabled = true;
+            chartArea2.CursorX.IsUserSelectionEnabled = true;
+            chartArea2.CursorX.LineColor = System.Drawing.Color.DarkRed;
+            chartArea2.Name = "ChartArea1";
+            this.crtFFT.ChartAreas.Add(chartArea2);
             this.crtFFT.Dock = System.Windows.Forms.DockStyle.Fill;
             this.crtFFT.Location = new System.Drawing.Point(0, 0);
             this.crtFFT.Name = "crtFFT";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series4.Name = "Series1";
-            this.crtFFT.Series.Add(series4);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Name = "Series1";
+            this.crtFFT.Series.Add(series2);
             this.crtFFT.Size = new System.Drawing.Size(642, 274);
             this.crtFFT.TabIndex = 0;
             this.crtFFT.Text = "chart1";
@@ -767,6 +767,7 @@
             this.cbDecrNoise.TabIndex = 6;
             this.cbDecrNoise.Text = "Decrement Noise?";
             this.cbDecrNoise.UseVisualStyleBackColor = true;
+            this.cbDecrNoise.CheckedChanged += new System.EventHandler(this.cbDecrNoise_CheckedChanged);
             // 
             // label9
             // 

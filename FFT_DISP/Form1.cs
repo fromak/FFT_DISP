@@ -177,11 +177,12 @@ namespace FFT_DISP
                 ReadSamplesToArray(points);
                 float[] Rdat = new float[ConversionConfiguration.NumOfPoints];
                 //Адско копирнули массив из байт в значения АЦП
-                for (int i = 1; i < points.Length;)
-                {
-                    Rdat[(i - 1) / 2] = ((UInt16)((points[i - 1] << 8) + (points[i])) * ConversionConfiguration.ADCStep);
-                    i += 2;
-                }
+                this.CopyToADCSteps(points, Rdat);
+                //for (int i = 1; i < points.Length;)
+                //{
+                //    Rdat[(i - 1) / 2] = ((UInt16)((points[i - 1] << 8) + (points[i])) * ConversionConfiguration.ADCStep);
+                //    i += 2;
+                //}
                 if (cbHamming.Checked)
                     HammingWindow(Rdat);
                 if (cbBlackman.Checked)
@@ -234,24 +235,37 @@ namespace FFT_DISP
                         }
                     }
                 }
-                if(rbFFTSharp.Checked)
+                if(rbFFTSharp.Checked && cbDecrNoise.Checked)
                 {
-                    for (int i = 0; i < length; i++)
+                    for (int i = 0; i < Rdat.Length; i++)
                     {
-
+                        Spectr[i] = Math.Abs(Spectr[i].Real) - Noise[i];
+                    }
+                }
+                else if (cbDecrNoise.Checked)
+                {
+                    for (int i = 0; i < Rdat.Length; i++)
+                    {
+                        Rdat[i] = Math.Abs(Rdat[i]) - Noise[i];
                     }
                 }
                 if (rbFFTSharp.Checked)
                 {
                     for (int i = 1; i < Rdat.Length / 2; i++)
                     {
-                        crtFFT.Series[0].Points.AddY(Math.Abs(Spectr[i].Real));
+                        if (cbDecrNoise.Checked)
+                            crtFFT.Series[0].Points.AddY(Spectr[i].Real);
+                        else
+                            crtFFT.Series[0].Points.AddY(Math.Abs(Spectr[i].Real));
                     }
                 }
                 else
                 {
                     for (int i = 1; i < Rdat.Length / 2; i++)
                     {
+                        if (cbDecrNoise.Checked)
+                            crtFFT.Series[0].Points.AddY(Rdat[i]);
+                        else
                         crtFFT.Series[0].Points.AddY(Math.Abs(Rdat[i]));
                     }
                 }
@@ -545,14 +559,19 @@ namespace FFT_DISP
                 if (Convert.ToInt32(tbNoiseDepth.Text) > 0)
                 {
                     Noise = new float[(int)numFFT.Value];
-                    byte[] Samples = new byte[Convert.ToInt32(numFFT.Value) * 2];
+                    byte[] Samples = new byte[Convert.ToInt32(tbSearchLen.Text) * 2];
                     ReadSamplesToArray(Samples);
-                    float[] AdcSamples = new float[Convert.ToInt32(numFFT.Value)];
+                    float[] AdcSamples = new float[Convert.ToInt32(tbSearchLen.Text)];
                     CopyToADCSteps(Samples, AdcSamples);
                     Search Ser = new Search();
-                    Ser.CalculateNoise(Noise, AdcSamples, Convert.ToInt32(numFFT.Value), 0, Convert.ToInt32(tbStartPoint.Text), 2);
+                    Ser.CalculateNoise(Noise, AdcSamples, Convert.ToInt32(numFFT.Value), 0, Convert.ToUInt16(tbNoiseDepth.Text));
                 }
             }
+        }
+
+        private void cbDecrNoise_CheckedChanged(object sender, EventArgs e)
+        {
+            StartConversion();
         }
     }
 }
